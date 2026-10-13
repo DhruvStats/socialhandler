@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SocialHandler — Your AI manager for brand deals</title>
+<meta name="description" content="Paste a brand's offer. Get a fair rate, contract red flags and a reply that wins more — built for Indian creators. ₹ pricing, UPI, GST invoices, Hinglish.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#121218; --ink2:#3b3b46; --mute:#6b6b78; --line:#e7e5df;
+  --bg:#fcfbf8; --card:#ffffff; --soft:#f4f2ec;
+  --y:#ffd60a; --y2:#fff3b0; --yd:#5c4a00;
+  --g:#12a150; --gbg:#e6f6ec; --r:#d93a3a; --rbg:#fdecec; --o:#c26a00; --obg:#fff1df;
+  --rad:16px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.1;margin:0;letter-spacing:-.02em}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px;padding:12px 20px;border-radius:999px;text-decoration:none;border:1.5px solid var(--ink);cursor:pointer;background:transparent;color:var(--ink);font-family:inherit}
+.btn.pri{background:var(--ink);color:#fff}
+.btn.pri:hover{background:#2a2a34}
+.btn.y{background:var(--y);border-color:var(--y);color:var(--ink)}
+.btn:hover{transform:translateY(-1px)}
+.eyebrow{display:inline-block;font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;background:var(--y2);color:var(--yd)}
+.hl{background:linear-gradient(transparent 60%,var(--y) 60%)}
+section{padding:88px 0}
+.sec-h{max-width:680px;margin:0 auto 44px;text-align:center}
+.sec-h h2{font-size:clamp(30px,4vw,44px);margin:14px 0 12px}
+.sec-h p{color:var(--mute);font-size:17px;margin:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--rad);padding:22px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px}
+.chip.hi{background:var(--rbg);color:var(--r)} .chip.md{background:var(--obg);color:var(--o)} .chip.lo{background:var(--gbg);color:var(--g)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+
+/* nav */
+nav{position:sticky;top:0;z-index:20;background:rgba(252,251,248,.88);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:66px}
+.logo{display:flex;align-items:center;gap:10px;font-family:"Bricolage Grotesque";font-weight:800;font-size:20px;text-decoration:none}
+.logo i{width:32px;height:32px;border-radius:9px;background:var(--ink);display:grid;place-items:center;font-style:normal;color:var(--y);font-size:17px}
+.nl{display:flex;gap:26px;align-items:center;font-size:14px;font-weight:500}
+.nl a{text-decoration:none;color:var(--ink2)}
+.nl a:hover{color:var(--ink)}
+
+/* hero */
+.hero{padding:72px 0 56px}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.hero h1{font-size:clamp(40px,5.6vw,66px);margin:18px 0}
+.hero p.lead{font-size:19px;color:var(--ink2);max-width:520px;margin:0 0 28px}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap}
+.trust-row{display:flex;gap:18px;flex-wrap:wrap;margin-top:28px;font-size:13px;color:var(--mute);font-weight:500}
+.trust-row span::before{content:"✓ ";color:var(--g);font-weight:700}
+.hero-card{position:relative}
+.hero-card .card{box-shadow:0 30px 60px -30px rgba(18,18,24,.25)}
+.msg{background:var(--soft);border-radius:14px 14px 14px 4px;padding:12px 14px;font-size:14px;color:var(--ink2)}
+.range-bar{position:relative;height:10px;border-radius:99px;background:linear-gradient(90deg,#fbd2d2 0%,#ffe9a8 40%,#bfeccd 70%,#9ee2b6 100%);margin:28px 0 10px}
+.range-bar .pin{position:absolute;top:-26px;transform:translateX(-50%);font-size:11px;font-weight:700;white-space:nowrap}
+.range-bar .pin::after{content:"";position:absolute;left:50%;top:18px;width:2px;height:18px;background:var(--ink);transform:translateX(-50%)}
+.float{position:absolute;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 14px;font-size:13px;font-weight:600;box-shadow:0 14px 30px -18px rgba(0,0,0,.3)}
+
+/* checker */
+#checker{background:var(--ink);color:#fff}
+#checker .sec-h p{color:#b4b4c0}
+#checker .eyebrow{background:#2a2a14;color:var(--y)}
+.ck{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.ck .pane{background:#1c1c25;border:1px solid #2c2c38;border-radius:var(--rad);padding:22px}
+.ck label{display:block;font-size:13px;font-weight:600;color:#c9c9d4;margin:0 0 6px}
+.ck textarea,.ck input,.ck select{width:100%;font-family:inherit;font-size:15px;color:#fff;background:#121218;border:1px solid #34344a;border-radius:12px;padding:12px}
+.ck textarea{min-height:150px;resize:vertical}
+.ck textarea:focus,.ck input:focus,.ck select:focus{outline:2px solid var(--y);border-color:transparent}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:14px 0}
+.sample{font-size:12px;color:var(--y);background:none;border:0;cursor:pointer;padding:0;font-family:inherit;text-decoration:underline}
+.res-empty{display:grid;place-items:center;height:100%;min-height:300px;text-align:center;color:#8d8d9c;font-size:15px}
+.big{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.kv{display:flex;justify-content:space-between;font-size:14px;color:#c9c9d4;padding:6px 0}
+.kv b{color:#fff}
+.flag{display:flex;gap:10px;align-items:flex-start;font-size:14px;padding:10px 12px;border-radius:12px;background:#24242f;margin-bottom:8px}
+.reply{background:#121218;border:1px solid #34344a;border-radius:12px;padding:14px;font-size:14px;white-space:pre-wrap;color:#e8e8ef}
+.tabs{display:flex;gap:6px;margin:16px 0 8px}
+.tabs button{font-family:inherit;font-size:12px;font-weight:600;padding:6px 12px;border-radius:99px;border:1px solid #3a3a4c;background:transparent;color:#c9c9d4;cursor:pointer}
+.tabs button.on{background:var(--y);color:var(--ink);border-color:var(--y)}
+.note{font-size:12px;color:#8d8d9c;margin-top:12px}
+.err{color:#ff8080;font-size:13px;margin-top:8px;display:none}
+
+/* pains */
+.pain h3{font-size:19px;margin:12px 0 6px}
+.pain p{color:var(--mute);font-size:15px;margin:0}
+.pain .ic{width:42px;height:42px;border-radius:12px;background:var(--y2);display:grid;place-items:center;font-size:20px}
+
+/* steps */
+.step{display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:center;margin-bottom:56px}
+.step:nth-child(even) .txt{order:2}
+.step .num{font-family:"Bricolage Grotesque";font-weight:800;color:var(--yd);background:var(--y);width:38px;height:38px;border-radius:50%;display:grid;place-items:center}
+.step h3{font-size:30px;margin:14px 0 10px}
+.step p{color:var(--ink2);font-size:17px}
+.pipe{display:flex;gap:6px;flex-wrap:wrap}
+.pipe span{font-size:12px;font-weight:600;padding:6px 10px;border-radius:8px;background:var(--soft);color:var(--mute)}
+.pipe span.done{background:var(--gbg);color:var(--g)} .pipe span.now{background:var(--y);color:var(--ink)}
+.li{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--line);font-size:14px}
+.li:last-child{border:0}
+
+/* india */
+#india{background:var(--soft)}
+.feat{display:flex;gap:14px}
+.feat .ic{flex:none;width:44px;height:44px;border-radius:12px;background:var(--ink);color:var(--y);display:grid;place-items:center;font-size:20px}
+.feat h3{font-size:18px;margin:2px 0 4px}
+.feat p{margin:0;color:var(--mute);font-size:15px}
+
+/* compare */
+table.cmp{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid var(--line);border-radius:var(--rad);overflow:hidden;font-size:15px}
+.cmp th,.cmp td{padding:15px 18px;text-align:left;border-bottom:1px solid var(--line)}
+.cmp tr:last-child td{border-bottom:0}
+.cmp th{font-family:"Bricolage Grotesque";font-size:17px;background:var(--soft)}
+.cmp th.us,.cmp td.us{background:#fffbe3}
+.cmp td:first-child{color:var(--mute);font-weight:500}
+
+/* pricing */
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:860px;margin:0 auto}
+.plan{position:relative}
+.plan.feat2{border:2px solid var(--ink)}
+.plan .tag{position:absolute;top:-13px;left:22px;background:var(--y);font-size:12px;font-weight:700;padding:4px 10px;border-radius:99px}
+.plan h3{font-size:22px}
+.price{font-family:"Bricolage Grotesque";font-size:46px;font-weight:800;margin:10px 0 2px}
+.price small{font-size:16px;color:var(--mute);font-weight:500;font-family:Inter}
+.plan ul{padding:0;list-style:none;margin:18px 0 22px;font-size:15px}
+.plan li{padding:6px 0 6px 26px;position:relative}
+.plan li::before{content:"✓";position:absolute;left:0;color:var(--g);font-weight:700}
+.slab{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+.slab td,.slab th{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left}
+.slab th{font-size:12px;color:var(--mute);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.calc{max-width:860px;margin:28px auto 0}
+.calc .in{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;align-items:end}
+.calc label{font-size:13px;font-weight:600;color:var(--ink2);display:block;margin-bottom:6px}
+.calc input,.calc select{width:100%;font:inherit;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.calc .out{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.calc .out div{background:var(--soft);border-radius:12px;padding:14px}
+.calc .out span{font-size:12px;color:var(--mute);font-weight:600}
+.calc .out b{display:block;font-family:"Bricolage Grotesque";font-size:24px}
+
+/* trust + faq */
+.tr{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.tr .card h3{font-size:17px;margin:10px 0 6px}
+.tr .card p{margin:0;font-size:14px;color:var(--mute)}
+details{border-bottom:1px solid var(--line);padding:18px 0}
+summary{cursor:pointer;font-weight:600;font-size:17px;list-style:none;display:flex;justify-content:space-between}
+summary::after{content:"+";font-size:22px;line-height:1}
+details[open] summary::after{content:"–"}
+details p{color:var(--ink2);margin:10px 0 0}
+.final{background:var(--y);border-radius:28px;padding:56px 28px;text-align:center}
+.final h2{font-size:clamp(30px,4.5vw,48px);margin-bottom:12px}
+footer{padding:40px 0 60px;font-size:13px;color:var(--mute)}
+footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.ea{font-size:11px;font-weight:700;background:var(--soft);color:var(--mute);padding:2px 8px;border-radius:99px;margin-left:6px;vertical-align:middle}
+
+@media (max-width:900px){
+  .hero .wrap,.ck,.step,.grid2,.plans{grid-template-columns:1fr}
+  .step:nth-child(even) .txt{order:0}
+  .grid3,.tr{grid-template-columns:1fr 1fr}
+  .nl a:not(.btn){display:none}
+  .float{display:none}
+  .calc .in,.calc .out{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .grid3,.tr,.row3{grid-template-columns:1fr}
+  .nl .btn{padding:9px 14px;font-size:13px;white-space:nowrap}
+  .logo{font-size:18px}
+  .kv{flex-wrap:wrap;gap:2px 10px}
+  .kv .big{font-size:22px !important}
+  section{padding:64px 0}
+  .cmp th,.cmp td{padding:11px 10px;font-size:13px}
+}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="logo" href="#"><i>↗</i>SocialHandler</a>
+  <div class="nl">
+    <a href="#how">How it works</a><a href="#india">Made for India</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a>
+    <a class="btn pri" href="#checker">Check a deal free</a>
+  </div>
+</div></nav>
+
+<!-- HERO -->
+<header class="hero"><div class="wrap">
+  <div>
+    <span class="eyebrow">Built for Indian creators</span>
+    <h1>Got a brand offer? Know what it's <span class="hl">really worth.</span></h1>
+    <p class="lead">Paste the brand's message. Get a fair rate, contract red flags, and a reply that wins you more — in 30 seconds. Then we track the deal until the money hits your account.</p>
+    <div class="cta-row">
+      <a class="btn pri" href="#checker">Check my deal — free</a>
+      <a class="btn" href="#how">See how it works</a>
+    </div>
+    <div class="trust-row"><span>₹ pricing</span><span>UPI payment links</span><span>GST invoices</span><span>Hinglish replies</span></div>
+  </div>
+  <div class="hero-card">
+    <div class="card">
+      <div style="font-size:12px;font-weight:600;color:var(--mute);margin-bottom:8px">Brand message · Instagram DM</div>
+      <div class="msg">Hi! Loved your content 😊 We'd like 1 reel + 3 stories for ₹12,000. We'll also run it as an ad. Payment 90 days after posting.</div>
+      <div class="range-bar">
+        <span class="pin" style="left:14%">Offer ₹12k</span>
+        <span class="pin" style="left:72%">Fair ₹27k</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--mute)"><span>Lowball</span><span>Fair</span><span>Premium</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin:18px 0 12px">
+        <span style="color:var(--mute);font-size:14px">Fair range for you</span>
+        <span style="font-family:'Bricolage Grotesque';font-size:28px;font-weight:800;color:var(--g)">₹24k – ₹30k</span>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <span class="chip hi">● Ad usage, no time limit</span>
+        <span class="chip hi">● Paid in 90 days</span>
+        <span class="chip lo">● Deliverables clear</span>
+      </div>
+    </div>
+    <div class="float" style="left:-28px;bottom:-22px">Reply drafted ✍️ <span style="color:var(--g)">+₹12,000 likely</span></div>
+  </div>
+</div></header>
+
+<!-- LIVE CHECKER -->
+<section id="checker"><div class="wrap">
+  <div class="sec-h">
+    <span class="eyebrow">Try it now · no sign-up</span>
+    <h2>Is this deal fair?</h2>
+    <p>Paste any brand offer — DM, WhatsApp or email. We'll estimate your fair rate, flag risky terms, and write your reply.</p>
+  </div>
+  <div class="ck">
+    <div class="pane">
+      <div style="display:flex;justify-content:space-between;align-items:center"><label for="offer">Brand's message</label><button class="sample" id="sampleBtn" type="button">Use a sample</button></div>
+      <textarea id="offer" placeholder="Paste the brand's message here…"></textarea>
+      <div class="row3">
+        <div><label for="fol">Followers</label><input id="fol" type="number" min="0" placeholder="48000"></div>
+        <div><label for="views">Avg reel views</label><input id="views" type="number" min="0" placeholder="15000"></div>
+        <div><label for="niche">Niche</label>
+          <select id="niche">
+            <option value="550">Fitness</option><option value="600">Beauty</option><option value="550">Fashion</option>
+            <option value="450">Food</option><option value="700">Tech</option><option value="900">Finance</option>
+            <option value="500">Travel</option><option value="600">Education</option><option value="450">Lifestyle</option>
+            <option value="350">Comedy / entertainment</option>
+          </select></div>
+      </div>
+      <button class="btn y" id="runBtn" type="button" style="width:100%;justify-content:center">Check my deal</button>
+      <div class="err" id="err"></div>
+      <p class="note">Your message stays in your browser — nothing is uploaded.</p>
+    </div>
+    <div class="pane" id="result"><div class="res-empty">Your fair rate, red flags<br>and reply will appear here.</div></div>
+  </div>
+</div></section>
+
+<!-- PAINS -->
+<section><div class="wrap">
+  <div class="sec-h"><span class="eyebrow">Sound familiar?</span><h2>Brands have agencies, lawyers and data. You have guesswork.</h2></div>
+  <div class="grid3">
+    <div class="card pain"><div class="ic">🤷</div><h3>You guess your price</h3><p>No rate card, no benchmarks. You quote low so you don't lose the deal.</p></div>
+    <div class="card pain"><div class="ic">😬</div><h3>Negotiating feels awkward</h3><p>Asking for more feels rude, so the first offer becomes the final offer.</p></div>
+    <div class="card pain"><div class="ic">📜</div><h3>Contracts in legal English</h3><p>"Perpetual usage" and "exclusivity" quietly give away your face and your income.</p></div>
+    <div class="card pain"><div class="ic">⏳</div><h3>Paid in 90 days — maybe</h3><p>You posted months ago. The invoice is still "in process".</p></div>
+    <div class="card pain"><div class="ic">👻</div><h3>Brands ghost after posting</h3><p>Follow-ups go unanswered and you don't want to burn the relationship.</p></div>
+    <div class="card pain"><div class="ic">🧾</div><h3>Invoices and GST confuse you</h3><p>Making invoices, tracking TDS and payments eats the time you should spend creating.</p></div>
+  </div>
+</div></section>
+
+<!-- HOW -->
+<section id="how" style="padding-top:20px"><div class="wrap">
+  <div class="sec-h"><span class="eyebrow">How it works</span><h2>From "hey, collab?" to money in your account</h2></div>
+
+  <div class="step">
+    <div class="txt"><div class="num">1</div><h3>Forward or paste any offer</h3><p>Paste a DM, upload a screenshot, or forward the brand email to your SocialHandler address. We pull out the brand, deliverables, budget, usage rights and payment terms.</p></div>
+    <div class="card">
+      <div style="font-size:12px;font-weight:600;color:var(--mute);margin-bottom:10px">Detected from the offer</div>
+      <div class="li"><span>Brand</span><b>ProteinCo</b></div>
+      <div class="li"><span>Deliverables</span><b>1 reel · 3 stories</b></div>
+      <div class="li"><span>Budget offered</span><b>₹12,000</b></div>
+      <div class="li"><span>Usage rights</span><span class="chip hi">Ads · no limit</span></div>
+      <div class="li"><span>Payment</span><span class="chip hi">90 days</span></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="txt"><div class="num">2</div><h3>Get your rate, red flags and reply</h3><p>See a fair range for your numbers and niche, what each risky clause costs you, and a counter-offer written in your tone — English or Hinglish. Nothing is sent without your OK.</p></div>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="color:var(--mute);font-size:14px">Recommended</span><span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:26px">₹24k – ₹30k</span></div>
+      <div style="font-size:13px;color:var(--mute);margin:2px 0 14px">Midpoint ₹27,000 · offer is in the bottom 15% for creators like you</div>
+      <div class="li"><span>Perpetual ad usage</span><span class="chip hi">High risk · +₹8k</span></div>
+      <div class="li"><span>6-month exclusivity</span><span class="chip md">Medium · ask 1 month</span></div>
+      <div class="li"><span>Net-90 payment</span><span class="chip hi">High · ask Net-15</span></div>
+      <div class="msg" style="margin-top:14px;border-radius:14px 14px 4px 14px;background:var(--y2)">Hi Priya, thanks for reaching out! For 1 reel + 3 stories my rate is ₹28,000 with 30 days of organic usage…</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="txt"><div class="num">3</div><h3>Track, invoice, get paid <span class="ea">Early access</span></h3><p>Every deal moves through one pipeline. GST-ready invoices with UPI links go out automatically, and we chase late payments — politely first, firmly after.</p></div>
+    <div class="card">
+      <div class="pipe" style="margin-bottom:14px"><span class="done">Offer</span><span class="done">Negotiating</span><span class="done">Signed</span><span class="now">Posted</span><span>Invoiced</span><span>Paid</span></div>
+      <div class="li"><span>ProteinCo · ₹24,000</span><span class="chip lo">Paid</span></div>
+      <div class="li"><span>FitWear · ₹18,500</span><span class="chip md">Due in 3 days</span></div>
+      <div class="li"><span>SnackBox · ₹15,000</span><span class="chip hi">12 days late · reminder sent</span></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- INDIA -->
+<section id="india"><div class="wrap">
+  <div class="sec-h"><span class="eyebrow">Made for India</span><h2>Global tools charge in dollars and speak only English</h2><p>We're built for how deals actually happen here — on DMs and WhatsApp, in rupees, with GST and TDS.</p></div>
+  <div class="grid3">
+    <div class="feat"><div class="ic">₹</div><div><h3>Indian rates, in rupees</h3><p>Benchmarks from Indian deals by niche and city — not US numbers converted.</p></div></div>
+    <div class="feat"><div class="ic">⚡</div><div><h3>UPI payment links</h3><p>Brands pay by UPI, card or netbanking from your invoice link. <span class="ea">Early access</span></p></div></div>
+    <div class="feat"><div class="ic">🧾</div><div><h3>GST-ready invoices</h3><p>Correct invoices with GSTIN, SAC code and TDS noted — export for your CA. <span class="ea">Early access</span></p></div></div>
+    <div class="feat"><div class="ic">💬</div><div><h3>WhatsApp + Instagram DMs</h3><p>Forward a screenshot from wherever the brand messaged you.</p></div></div>
+    <div class="feat"><div class="ic">🗣️</div><div><h3>Hinglish replies</h3><p>Replies that sound like you — English, Hinglish, and more languages soon.</p></div></div>
+    <div class="feat"><div class="ic">⭐</div><div><h3>Brand payment ratings</h3><p>See how fast a brand actually paid other creators before you say yes. <span class="ea">Coming soon</span></p></div></div>
+  </div>
+</div></section>
+
+<!-- COMPARE -->
+<section><div class="wrap">
+  <div class="sec-h"><span class="eyebrow">Compare</span><h2>Agency power, without the agency cut</h2></div>
+  <table class="cmp">
+    <tr><th></th><th>Doing it yourself</th><th>Talent agency</th><th class="us">SocialHandler</th></tr>
+    <tr><td>Who signs you</td><td>—</td><td>Only big creators</td><td class="us">Anyone with 5k+ followers</td></tr>
+    <tr><td>Cost</td><td>₹0, but you undercharge</td><td>15–25% of every deal</td><td class="us">Free, or ₹999/mo + a cut of only the <b>extra</b> we win</td></tr>
+    <tr><td>Pricing advice</td><td>Guesswork</td><td>Their experience</td><td class="us">Data from Indian deals</td></tr>
+    <tr><td>Contract check</td><td>Hope for the best</td><td>Yes</td><td class="us">Every clause, in seconds</td></tr>
+    <tr><td>Payment chasing</td><td>Awkward follow-ups</td><td>Sometimes</td><td class="us">Automatic reminders</td></tr>
+    <tr><td>Speed</td><td>Days</td><td>Days</td><td class="us">30 seconds</td></tr>
+  </table>
+</div></section>
+
+<!-- PRICING -->
+<section id="pricing" style="background:var(--soft)"><div class="wrap">
+  <div class="sec-h"><span class="eyebrow">Pricing</span><h2>We only earn more when you do</h2><p>Our success fee applies only to the <b>extra</b> money above the brand's first written offer. No extra won = no fee.</p></div>
+  <div class="plans">
+    <div class="card plan">
+      <h3>Starter</h3>
+      <div class="price">₹0<small> /month</small></div>
+      <div style="color:var(--mute);font-size:14px">For creators getting their first deals</div>
+      <ul><li>3 deal checks a month</li><li>Fair-rate range + red flags</li><li>Reply drafts</li><li>Shareable media kit</li></ul>
+      <table class="slab"><tr><th>Extra money won</th><th>Fee</th></tr>
+        <tr><td>First ₹10,000</td><td>15%</td></tr><tr><td>₹10,001 – ₹50,000</td><td>12%</td></tr><tr><td>Above ₹50,000</td><td>10%</td></tr></table>
+      <a class="btn" href="#checker" style="width:100%;justify-content:center;margin-top:18px">Start free</a>
+    </div>
+    <div class="card plan feat2">
+      <span class="tag">Best for active creators</span>
+      <h3>Pro</h3>
+      <div class="price">₹999<small> /month</small></div>
+      <div style="color:var(--mute);font-size:14px">₹9,999/year — 2 months free</div>
+      <ul><li>Unlimited deal checks + contract scans</li><li>Negotiation drafts for every round</li><li>GST invoices + UPI links <span class="ea">Early access</span></li><li>Automatic payment reminders</li><li>Lower success fee</li></ul>
+      <table class="slab"><tr><th>Extra money won</th><th>Fee</th></tr>
+        <tr><td>First ₹10,000</td><td>10%</td></tr><tr><td>₹10,001 – ₹50,000</td><td>8%</td></tr><tr><td>Above ₹50,000</td><td>6%</td></tr></table>
+      <a class="btn pri" href="#join" style="width:100%;justify-content:center;margin-top:18px">Get early access</a>
+    </div>
+  </div>
+  <p style="text-align:center;font-size:13px;color:var(--mute);margin-top:14px">Fees are slab-wise (like income tax). Capped at ₹25,000 per deal. GST extra where applicable.</p>
+
+  <div class="card calc">
+    <h3 style="font-size:20px;margin-bottom:14px">Fee calculator</h3>
+    <div class="in">
+      <div><label for="cOff">Brand's first offer (₹)</label><input id="cOff" type="number" min="0" value="12000"></div>
+      <div><label for="cFin">Final deal (₹)</label><input id="cFin" type="number" min="0" value="26000"></div>
+      <div><label for="cPlan">Plan</label><select id="cPlan"><option value="pro">Pro</option><option value="free">Starter</option></select></div>
+    </div>
+    <div class="out">
+      <div><span>Extra money won</span><b id="oUp">—</b></div>
+      <div><span>Our fee</span><b id="oFee">—</b></div>
+      <div><span>You keep (vs first offer)</span><b id="oKeep" style="color:var(--g)">—</b></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- TRUST -->
+<section><div class="wrap">
+  <div class="sec-h"><span class="eyebrow">Your trust matters</span><h2>You stay in control</h2></div>
+  <div class="tr">
+    <div class="card"><div style="font-size:22px">✋</div><h3>Nothing sends without you</h3><p>Every reply is a draft until you tap approve.</p></div>
+    <div class="card"><div style="font-size:22px">🔒</div><h3>Read-only access</h3><p>We only read what you forward or connect. Never your passwords.</p></div>
+    <div class="card"><div style="font-size:22px">🗑️</div><h3>Delete anytime</h3><p>Export or delete all your data in one click, as per India's DPDP Act.</p></div>
+    <div class="card"><div style="font-size:22px">📐</div><h3>Estimates, labelled</h3><p>Rates are estimates. Contract checks are not legal advice.</p></div>
+  </div>
+</div></section>
+
+<!-- FAQ -->
+<section id="faq" style="padding-top:20px"><div class="wrap" style="max-width:780px">
+  <div class="sec-h"><span class="eyebrow">FAQ</span><h2>Questions creators ask</h2></div>
+  <details><summary>How is the "extra money" calculated?</summary><p>It's the final signed amount minus the brand's first written offer — saved the moment you paste or forward it. If the brand asked for your rate first, we use the rate you tell us you'd have quoted, recorded before we negotiate.</p></details>
+  <details><summary>What if you don't get me more?</summary><p>Then you pay no success fee. On Pro you pay only the ₹999 subscription.</p></details>
+  <details><summary>How do I pay the success fee?</summary><p>The brand pays you directly — the money never sits with us. Once the brand pays, we send you a GST invoice for our fee, payable by UPI or card.</p></details>
+  <details><summary>Do you contact brands for me?</summary><p>We draft every reply in your tone; you approve and send. Auto-send for routine follow-ups is optional.</p></details>
+  <details><summary>How accurate are the rates?</summary><p>They're estimates based on your views, niche, deliverables and usage rights, and they improve as more Indian deals are added. Always use your judgement.</p></details>
+  <details><summary>Is the contract check legal advice?</summary><p>No. It highlights common risky terms. For high-value or complex contracts, consult a lawyer.</p></details>
+  <details><summary>Who is it for?</summary><p>Creators on Instagram and YouTube with roughly 5k–500k followers, UGC creators, and small agencies managing creators.</p></details>
+</div></section>
+
+<!-- FINAL CTA -->
+<section id="join" style="padding-top:20px"><div class="wrap">
+  <div class="final">
+    <h2>Stop leaving money on the table</h2>
+    <p style="font-size:18px;max-width:560px;margin:0 auto 24px">Early access is free for our first 100 creators. Send us your next brand offer and we'll check it for you.</p>
+    <div class="cta-row" style="justify-content:center">
+      <a class="btn pri" id="waBtn" href="#" target="_blank" rel="noopener">Message us on WhatsApp</a>
+      <a class="btn" id="igBtn" href="#" target="_blank" rel="noopener">DM on Instagram</a>
+    </div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div><a class="logo" href="#" style="font-size:17px"><i style="width:26px;height:26px;font-size:14px">↗</i>SocialHandler</a><p style="max-width:380px">AI assistance for creator brand deals. Rate estimates are indicative. Contract checks are not legal advice.</p></div>
+  <div style="display:flex;gap:22px"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Refunds</a><a href="#faq">FAQ</a></div>
+  <div>© <span id="yr"></span> SocialHandler · Made in India</div>
+</div></footer>
+
+<script>
+/* ---- edit these before launch ---- */
+const CONFIG = {
+  whatsapp: "91XXXXXXXXXX",          // your WhatsApp number with country code, no +
+  instagram: "isthisdealfair",
+};
+
+document.getElementById('yr').textContent = new Date().getFullYear();
+document.getElementById('waBtn').href = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent("Hi SocialHandler! I want early access. Here's a brand offer I got:")}`;
+document.getElementById('igBtn').href = `https://ig.me/m/${CONFIG.instagram}`;
+
+const inr = n => "₹" + Math.round(n).toLocaleString("en-IN");
+const short = n => n >= 100000 ? "₹" + (n/100000).toFixed(n%100000?1:0) + "L" : n >= 1000 ? "₹" + Math.round(n/1000) + "k" : inr(n);
+
+/* ---- deal checker (runs fully in the browser) ---- */
+const SAMPLE = "Hi! Loved your content 😊 We're ProteinCo and would like 1 reel + 3 stories for ₹12,000. We'll also use the reel in our paid ads. Exclusivity for 6 months in the nutrition category. Payment is Net 90 after posting.";
+document.getElementById('sampleBtn').onclick = () => {
+  offer.value = SAMPLE; fol.value = 48000; views.value = 15000; niche.selectedIndex = 0; hideErr();
+};
+const errEl = document.getElementById('err');
+function showErr(m){ errEl.textContent = m; errEl.style.display = 'block'; }
+function hideErr(){ errEl.style.display = 'none'; }
+[offer, fol, views].forEach(el => el.addEventListener('input', hideErr));
+
+function parseAmount(t){
+  const re = /(?:₹|rs\.?|inr)\s*([\d,]+(?:\.\d+)?)\s*(k|l|lakh|lakhs)?|([\d,]+(?:\.\d+)?)\s*(k|l|lakh|lakhs)?\s*(?:rupees|rs|inr|\/-)/gi;
+  let m, best = 0;
+  while ((m = re.exec(t))){
+    let n = parseFloat((m[1]||m[3]).replace(/,/g,''));
+    const u = (m[2]||m[4]||'').toLowerCase();
+    if (u === 'k') n *= 1000; else if (u.startsWith('l')) n *= 100000;
+    if (n > best) best = n;
+  }
+  return best;
+}
+function count(t, re){ const m = t.match(re); if(!m) return 0; const n = parseInt(m[1]); return isNaN(n) ? 1 : n; }
+
+function analyse(){
+  const t = offer.value.trim(), tl = t.toLowerCase();
+  const followers = +fol.value || 0;
+  let v = +views.value || 0;
+  if (t.length < 15) return showErr("Paste the brand's message first.");
+  if (!followers && !v) return showErr("Add your followers or average reel views.");
+  if (!v) v = followers * 0.25;
+
+  const reels = count(tl, /(\d+)?\s*(?:x\s*)?reels?\b/) ;
+  const stories = count(tl, /(\d+)?\s*(?:x\s*)?stor(?:y|ies)\b/);
+  const posts = count(tl, /(\d+)?\s*(?:x\s*)?(?:static\s*)?posts?\b/);
+  const shorts = count(tl, /(\d+)?\s*(?:x\s*)?(?:youtube\s*)?(?:shorts|videos?)\b/);
+  const units = Math.max(1, reels + shorts) + stories*0.25 + posts*0.7;
+
+  const cpm = +niche.value;                       // ₹ per 1,000 avg views
+  let base = Math.max(v/1000*cpm, followers*0.05) * units;
+
+  const flags = []; let add = 0;
+  if (/(perpetual|forever|lifetime|unlimited|in perpetuity)/.test(tl)) { flags.push(["hi","Usage rights forever","Limit to 30–90 days, or charge extra."]); add += .5; }
+  else if (/(paid ads?|ads?\b|whitelist|boost|dark post|meta ads|partnership ads)/.test(tl)) { flags.push(["hi","Paid ad usage included","Ad usage is a separate fee — usually +30–50%."]); add += .35; }
+  const ex = tl.match(/exclusiv\w*[^.]{0,40}?(\d+)\s*(month|week)/) || tl.match(/(\d+)\s*(month|week)s?[^.]{0,30}exclusiv/);
+  if (ex){ const mo = ex[2].startsWith('w') ? +ex[1]/4 : +ex[1];
+    if (mo > 1){ flags.push([mo>=3?"hi":"md", `${ex[1]} ${ex[2]}${+ex[1]>1?'s':''} exclusivity`, "Ask for 1 month, or charge for the deals you'll lose."]); add += Math.min(.4, mo*.06); } }
+  else if (/exclusiv/.test(tl)) { flags.push(["md","Exclusivity (length unclear)","Ask how long and which categories."]); add += .15; }
+  const pay = tl.match(/net\s*-?\s*(\d+)/) || tl.match(/(\d+)\s*days?\s*(?:after|from|of|post)/);
+  if (pay && +pay[1] > 30) flags.push(["hi",`Paid in ${pay[1]} days`,"Ask for Net-15, or 50% upfront."]);
+  else if (!pay) flags.push(["md","Payment date not mentioned","Ask: when and how will you pay?"]);
+  if (/(barter|free product|gift(ed)?|pr package|in exchange for product)/.test(tl)) flags.push(["md","Product instead of cash","Fine for brands you love — otherwise quote your rate."]);
+  if (/unlimited revisions?/.test(tl)) flags.push(["md","Unlimited revisions","Cap it at 2 rounds."]);
+  if (/(raw files?|source files?)/.test(tl)) flags.push(["md","Raw files requested","Raw footage is usually charged extra."]);
+  if (!flags.some(f => f[0]==="hi")) flags.push(["lo","No major red flags found","Still confirm usage, exclusivity and payment in writing."]);
+
+  const mid = Math.round(base * (1 + add) / 500) * 500;
+  const lo = Math.round(mid*.88/500)*500, hi = Math.round(mid*1.12/500)*500;
+  const offered = parseAmount(t);
+  const ask = Math.round(mid*1.05/500)*500;
+
+  let verdict, vcol;
+  if (!offered) { verdict = "No amount in the message"; vcol = "#ffd60a"; }
+  else if (offered < lo*.75) { verdict = "Lowball — counter it"; vcol = "#ff8080"; }
+  else if (offered < lo) { verdict = "Below fair — negotiate"; vcol = "#ffd60a"; }
+  else if (offered <= hi) { verdict = "Fair offer"; vcol = "#5fe39a"; }
+  else { verdict = "Great offer — take it"; vcol = "#5fe39a"; }
+
+  const pos = offered ? Math.max(3, Math.min(97, offered/(hi*1.4)*100)) : null;
+  const fairPos = Math.min(92, mid/(hi*1.4)*100);
+  const deliver = [reels+shorts ? `${reels+shorts} reel${reels+shorts>1?'s':''}` : '1 reel', stories ? `${stories} stor${stories>1?'ies':'y'}` : '', posts ? `${posts} post${posts>1?'s':''}` : ''].filter(Boolean).join(' + ');
+  const usageLine = add ? "This includes 30 days of organic usage — paid ad usage and exclusivity are priced separately." : "This includes 30 days of organic usage.";
+
+  const replies = {
+    en: `Hi! Thanks so much for reaching out — I really like the brand.\n\nFor ${deliver}, my rate is ${inr(ask)}. ${usageLine}\n\nPayment within 15 days of posting works best for me.${offered && offered < lo ? `\n\nIf budget is tight, I'm happy to adjust the deliverables rather than the rate.` : ''}\n\nShall I share a content plan?`,
+    hi: `Hi! Reach out karne ke liye thank you — brand mujhe sach mein pasand hai.\n\n${deliver} ke liye mera rate ${inr(ask)} hai. Isme 30 din ka organic usage included hai${add ? ' — paid ads aur exclusivity ka charge alag hoga' : ''}.\n\nPayment posting ke 15 din ke andar ho jaye toh best rahega.${offered && offered < lo ? `\n\nAgar budget tight hai, toh rate ki jagah deliverables adjust kar sakte hain.` : ''}\n\nContent plan share karun?`
+  };
+
+  result.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px;color:#b4b4c0;font-weight:600">Verdict</span><span style="font-weight:700;color:${vcol}">${verdict}</span></div>
+    <div class="range-bar" style="margin-top:34px">
+      ${pos!==null ? `<span class="pin" style="left:${pos}%;color:#fff">Offer ${short(offered)}</span>` : ''}
+      <span class="pin" style="left:${fairPos}%;color:#5fe39a">Fair ${short(mid)}</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:12px;color:#8d8d9c;margin-bottom:14px"><span>Lowball</span><span>Fair</span><span>Premium</span></div>
+    <div class="kv"><span>Offered</span><b>${offered ? inr(offered) : '—'}</b></div>
+    <div class="kv"><span>Fair range for you</span><b class="big" style="color:#5fe39a;font-size:24px">${inr(lo)} – ${inr(hi)}</b></div>
+    <div class="kv"><span>Ask for</span><b>${inr(ask)}</b></div>
+    ${offered && ask > offered ? `<div class="kv"><span>Potential extra</span><b style="color:var(--y)">+${inr(ask-offered)}</b></div>` : ''}
+    <div style="font-size:13px;color:#b4b4c0;font-weight:600;margin:16px 0 8px">Red flags</div>
+    ${flags.map(f => `<div class="flag"><span class="chip ${f[0]}">${f[0]==='hi'?'High':f[0]==='md'?'Check':'OK'}</span><div><b>${f[1]}</b><br><span style="color:#b4b4c0">${f[2]}</span></div></div>`).join('')}
+    <div class="tabs"><button class="on" data-l="en">English</button><button data-l="hi">Hinglish</button></div>
+    <div class="reply" id="replyBox"></div>
+    <button class="btn y" id="copyBtn" type="button" style="margin-top:10px;padding:9px 16px;font-size:14px">Copy reply</button>
+    <p class="note">Estimate based on ${Math.round(v).toLocaleString('en-IN')} avg views, your niche, deliverables and terms. Not legal advice.</p>`;
+  const box = document.getElementById('replyBox');
+  box.textContent = replies.en;
+  result.querySelectorAll('.tabs button').forEach(b => b.onclick = () => {
+    result.querySelectorAll('.tabs button').forEach(x => x.classList.toggle('on', x===b));
+    box.textContent = replies[b.dataset.l];
+  });
+  document.getElementById('copyBtn').onclick = e => {
+    navigator.clipboard.writeText(box.textContent).then(() => { e.target.textContent = "Copied ✓"; setTimeout(()=>e.target.textContent="Copy reply",1500); });
+  };
+  if (window.innerWidth < 900) result.scrollIntoView({behavior:'smooth', block:'start'});
+}
+document.getElementById('runBtn').onclick = analyse;
+
+/* ---- fee calculator: slab-wise on the extra amount ---- */
+const SLABS = { free:[[10000,.15],[40000,.12],[Infinity,.10]], pro:[[10000,.10],[40000,.08],[Infinity,.06]] };
+const CAP = 25000;
+function fee(up, plan){
+  let left = up, f = 0;
+  for (const [size, rate] of SLABS[plan]) { const part = Math.min(left, size); f += part*rate; left -= part; if (left <= 0) break; }
+  return Math.min(f, CAP);
+}
+function calc(){
+  const o = +cOff.value || 0, fi = +cFin.value || 0, up = Math.max(0, fi - o), f = fee(up, cPlan.value);
+  oUp.textContent = inr(up); oFee.textContent = inr(f); oKeep.textContent = "+" + inr(up - f);
+}
+[cOff, cFin, cPlan].forEach(el => el.addEventListener('input', calc));
+calc();
+</script>
+</body>
+</html>
